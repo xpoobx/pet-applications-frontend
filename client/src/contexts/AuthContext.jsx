@@ -14,12 +14,14 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
-  const signup = async (credentials) => {
-    const data = await signupApi(credentials);
-    setUser(data);
-    localStorage.setItem('user', JSON.stringify(data));
-    return data;
-  };
+  const signup = async (userData) => {
+  const res = await axios.post(
+    'http://localhost:4000/api/auth/register',
+    userData,
+    { withCredentials: true } 
+  );
+  return res.data;
+};
 
   const logout = () => {
     setUser(null);
